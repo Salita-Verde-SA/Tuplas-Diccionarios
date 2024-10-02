@@ -12,3 +12,4 @@ for i in palabra:
         dic[i]=1
         #sino 1
 print(dic)
+#No sabia como hacerlo
