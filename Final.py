@@ -1,5 +1,6 @@
 from colorama import init, Fore, Back, Style
 def mostrar_inventario(inventario):
+     #.items : Recorrer claves y valores
      for codigo, (descripcion, precio) in inventario.items():
         print(f"{Fore.RED}Código:{Fore.WHITE} {codigo}, Descripción: {descripcion}, Precio:{Fore.BLUE} ${precio}")
 

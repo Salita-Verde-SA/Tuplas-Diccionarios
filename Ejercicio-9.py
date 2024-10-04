@@ -4,6 +4,7 @@ palabra= texto.split()
 print(palabra)
 i=0
 dic= {}
+Espa=" "
 for i in palabra:
     if i in dic:
         dic[i]+=1
