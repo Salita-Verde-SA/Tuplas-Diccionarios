@@ -1,13 +1,13 @@
-from colorama import init, Fore, Back, Style
+from colorama import Fore
 def mostrar_inventario(inventario):
      #.items : Recorrer claves y valores
      for codigo, (descripcion, precio) in inventario.items():
-        print(f"{Fore.RED}Código:{Fore.WHITE} {codigo}, Descripción: {descripcion}, Precio:{Fore.BLUE} ${precio}")
+        print(f"{Fore.RED}Código:{Fore.WHITE} {codigo}, Descripcion: {Fore.BLUE}{descripcion},{Fore.WHITE} Precio:{Fore.BLUE} ${precio}")
 
 def buscar_producto(inventario, codigo):
     if codigo in inventario:
         descripcion, precio = inventario[codigo]
-        print(f"{Fore.WHITE}Producto {Fore.RED}Encontrado: {Fore.WHITE}Descripción: {descripcion}, Precio:{Fore.BLUE} ${precio}")
+        print(f"{Fore.WHITE}Producto {Fore.RED}Encontrado: {Fore.WHITE}Descripcion: {descripcion}, Precio:{Fore.BLUE} ${precio}")
     else:
         print(F"{Fore.RED}Producto no encontrado.")
         
@@ -21,6 +21,7 @@ def modificar_precio(inventario, codigo):
         print(F"{Fore.RED}Producto no encontrado.")
 def eliminar_producto(inventario, codigo):
     if codigo in inventario:
+        #del: elimina
         del inventario[codigo] 
         print(f"{Fore.RED}El producto con codigo {codigo} ha sido eliminado del inventario.")
     else:
@@ -28,11 +29,13 @@ def eliminar_producto(inventario, codigo):
 
 def productos_por_rango_de_precio(inventario, preciominimo, preciomaximo):
     print(f"{Fore.WHITE}Productos en el rango de precio entre ${preciominimo} y ${preciomaximo}:")
-    productos_en_rango = False
+
     for codigo, (descripcion, precio) in inventario.items():
         if preciominimo <= precio <= preciomaximo:
             print(f"{Fore.WHITE}Código: {codigo}, Descripción:{Fore.RED} {descripcion}, Precio: {Fore.BLUE}${precio}")
-            productos_en_rango = True
+            
+        else:
+            print("Error")
 
 inventario = {
     "A001": ("Teclado", 15000),
@@ -47,7 +50,7 @@ buscar_producto(inventario, codigo)
 modificar_precio(inventario, codigo)
 codigo = input(f"{Fore.WHITE}Ingrese el codigo del elemento que quiera eliminar: ")
 eliminar_producto(inventario, codigo)
-print(inventario)
+
 preciominimo= float(input(f"{Fore.WHITE}Ingrese el precio Minimo: "))
 preciomaximo= float(input(f"{Fore.WHITE}Ingrese el precio Maximo: "))
 productos_por_rango_de_precio(inventario, preciominimo, preciomaximo)
