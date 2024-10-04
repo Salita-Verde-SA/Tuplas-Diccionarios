@@ -28,7 +28,7 @@ def buscar_producto(inventario, codigo, retorno: bool):
             return descripcion, precio
         else:
             print(
-                f"{Fore.WHITE}Producto {Fore.RED}Encontrado: {Fore.WHITE}Descripcion:{Fore.BLUE} {descripcion}, Precio:{Fore.BLUE} ${precio}"
+                f"{Fore.WHITE}Producto {Fore.RED}Encontrado: {Fore.WHITE}Descripcion:{Fore.BLUE} {descripcion}{Fore.WHITE}, Precio:{Fore.BLUE} ${precio}"
             )
     else:
         print(f"{Fore.RED}Producto no encontrado.")
@@ -62,15 +62,16 @@ def productos_por_rango_de_precio(inventario, preciominimo, preciomaximo):
     )
 
     descripciones, precios = obtener_productos(inventario)
-    contador 
+    contador = 0
 
     for codigo, _ in inventario.items():
         if preciominimo <= precios[codigo] <= preciomaximo:
+            contador += 1
             print(
                 f"{Fore.WHITE}Código: {codigo}, Descripción:{Fore.RED} {descripciones[codigo]}{Fore.WHITE}, Precio: {Fore.BLUE}${precios[codigo]}"
             )
-        # else:
-        #     print("Error")
+    if contador == 0:
+        print("Ninguno.")
 
 
 inventario = {
