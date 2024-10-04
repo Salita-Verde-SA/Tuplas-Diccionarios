@@ -3,29 +3,44 @@ from colorama import Fore
 
 def mostrar_inventario(inventario):
     # .items : Recorrer claves y valores
+    descripciones, precios = obtener_productos(inventario)
+    for codigo, _ in descripciones.items():
+        print(
+            f"{Fore.RED}Código:{Fore.WHITE} {codigo}, Descripcion: {Fore.BLUE}{descripciones[codigo]},{Fore.WHITE} Precio:{Fore.BLUE} ${precios[codigo]}"
+        )
+
+
+def obtener_productos(inventario):
+    precios = {}
+    descripciones = {}
     for codigo, (descripcion, precio) in inventario.items():
-        print(
-            f"{Fore.RED}Código:{Fore.WHITE} {codigo}, Descripcion: {Fore.BLUE}{descripcion},{Fore.WHITE} Precio:{Fore.BLUE} ${precio}"
-        )
+        descripciones[codigo] = descripcion
+        precios[codigo] = precio
+    return descripciones, precios
 
 
-def buscar_producto(inventario, codigo):
+def buscar_producto(inventario, codigo, retorno: bool):
     if codigo in inventario:
-        descripcion, precio = inventario[codigo]
-        print(
-            f"{Fore.WHITE}Producto {Fore.RED}Encontrado: {Fore.WHITE}Descripcion: {descripcion}, Precio:{Fore.BLUE} ${precio}"
-        )
+        descripciones, precios = obtener_productos(inventario)
+        precio = precios[codigo]
+        descripcion = descripciones[codigo]
+        if retorno:
+            return descripcion, precio
+        else:
+            print(
+                f"{Fore.WHITE}Producto {Fore.RED}Encontrado: {Fore.WHITE}Descripcion:{Fore.BLUE} {descripcion}, Precio:{Fore.BLUE} ${precio}"
+            )
     else:
         print(f"{Fore.RED}Producto no encontrado.")
 
 
 def modificar_precio(inventario, codigo):
     if codigo in inventario:
+        descripcion, precio = buscar_producto(inventario, codigo, True)
         nuevo_precio = float(input(f"{Fore.WHITE}Ingrese el nuevo precio: "))
-        descripcion = inventario[codigo][0]
         inventario[codigo] = (descripcion, nuevo_precio)
         print(
-            f"{Fore.WHITE}El precio del producto {descripcion} ha sido actualizado a{Fore.BLUE} ${nuevo_precio}."
+            f"{Fore.WHITE}El precio del producto {descripcion} ha sido actualizado de {Fore.BLUE}${precio} {Fore.WHITE}a {Fore.BLUE}${nuevo_precio}."
         )
     else:
         print(f"{Fore.RED}Producto no encontrado.")
@@ -33,8 +48,7 @@ def modificar_precio(inventario, codigo):
 
 def eliminar_producto(inventario, codigo):
     if codigo in inventario:
-        # del: elimina
-        del inventario[codigo]
+        inventario.pop(codigo)
         print(
             f"{Fore.RED}El producto con codigo {codigo} ha sido eliminado del inventario."
         )
@@ -47,14 +61,16 @@ def productos_por_rango_de_precio(inventario, preciominimo, preciomaximo):
         f"{Fore.WHITE}Productos en el rango de precio entre ${preciominimo} y ${preciomaximo}:"
     )
 
-    for codigo, (descripcion, precio) in inventario.items():
-        if preciominimo <= precio <= preciomaximo:
-            print(
-                f"{Fore.WHITE}Código: {codigo}, Descripción:{Fore.RED} {descripcion}, Precio: {Fore.BLUE}${precio}"
-            )
+    descripciones, precios = obtener_productos(inventario)
+    contador 
 
-        else:
-            print("Error")
+    for codigo, _ in inventario.items():
+        if preciominimo <= precios[codigo] <= preciomaximo:
+            print(
+                f"{Fore.WHITE}Código: {codigo}, Descripción:{Fore.RED} {descripciones[codigo]}{Fore.WHITE}, Precio: {Fore.BLUE}${precios[codigo]}"
+            )
+        # else:
+        #     print("Error")
 
 
 inventario = {
@@ -66,7 +82,7 @@ inventario = {
 }
 mostrar_inventario(inventario)
 codigo = input(f"{Fore.WHITE}Ingresa el codigo: ")
-buscar_producto(inventario, codigo)
+buscar_producto(inventario, codigo, False)
 modificar_precio(inventario, codigo)
 codigo = input(f"{Fore.WHITE}Ingrese el codigo del elemento que quiera eliminar: ")
 eliminar_producto(inventario, codigo)
