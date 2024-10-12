@@ -67,7 +67,6 @@ inventario = {
     "A005": ("Impresora", 120),
 }
 
-
 mostrar_inventario(inventario)
 codigo = input(f"{fore.WHITE}Ingrese el código del producto: ")
 buscar_producto(inventario, codigo)
