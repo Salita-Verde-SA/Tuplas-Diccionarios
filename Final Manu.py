@@ -1,11 +1,15 @@
 from colorama import Fore as fore
 
 
+def mostrar_producto(inventario, i):
+    print(
+        f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{inventario.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${inventario.get(i)[1]}{fore.RESET}"
+    )
+
+
 def mostrar_inventario(inventario: dict):
     for i in inventario.keys():
-        print(
-            f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{inventario.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${inventario.get(i)[1]}{fore.RESET}"
-        )
+        mostrar_producto(inventario, i)
 
 
 def buscar_producto(inventario: dict, codigo: str):
@@ -43,12 +47,15 @@ def productos_por_rango_de_precio(inventario: dict, min, max):
     for i in inventario.keys():
         if min < inventario.get(i)[1] < max:
             c.update({i: inventario.get(i)})
-    print(
-        f"Productos en el rango de precios entre {fore.YELLOW}${min} {fore.RESET}y {fore.YELLOW}${max}{fore.RESET}:"
-    )
-    for i in c.keys():
+    if c.keys():
         print(
-            f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{c.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${c.get(i)[1]}{fore.RESET}"
+            f"Productos en el rango de precios entre {fore.YELLOW}${min} {fore.RESET}y {fore.YELLOW}${max}{fore.RESET}:"
+        )
+        for i in c.keys():
+            mostrar_producto(c, i)
+    else:
+        print(
+            f"No se han encontrado productos dentro del rango de precios especificado."
         )
 
 
