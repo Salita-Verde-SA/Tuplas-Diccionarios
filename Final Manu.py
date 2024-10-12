@@ -1,7 +1,7 @@
 from colorama import Fore as fore
 
 
-def mostrar_producto(inventario: dict, i):
+def mostrar_producto(inventario, i):
     print(
         f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{inventario.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${inventario.get(i)[1]}{fore.RESET}"
     )
@@ -21,7 +21,7 @@ def buscar_producto(inventario: dict, codigo: str):
         print("No se encontró el producto buscado")
 
 
-def modificar_precio(inventario: dict, codigo: str, nuevoPrecio):
+def modificar_precio(inventario: dict, codigo: str, nuevoPrecio: float):
     if inventario.get(codigo):
         nuevoValor = (inventario.get(codigo)[0], nuevoPrecio)
         inventario.update({codigo: nuevoValor})
@@ -66,7 +66,6 @@ inventario = {
     "A004": ("Monitor", 300),
     "A005": ("Impresora", 120),
 }
-
 
 mostrar_inventario(inventario)
 codigo = input(f"{fore.WHITE}Ingrese el código del producto: ")
