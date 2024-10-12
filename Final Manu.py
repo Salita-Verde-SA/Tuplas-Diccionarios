@@ -1,7 +1,7 @@
 from colorama import Fore as fore
 
 
-def mostrar_producto(inventario, i):
+def mostrar_producto(inventario: dict, i):
     print(
         f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{inventario.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${inventario.get(i)[1]}{fore.RESET}"
     )
@@ -66,6 +66,7 @@ inventario = {
     "A004": ("Monitor", 300),
     "A005": ("Impresora", 120),
 }
+
 
 mostrar_inventario(inventario)
 codigo = input(f"{fore.WHITE}Ingrese el código del producto: ")
