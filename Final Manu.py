@@ -1,15 +1,11 @@
 from colorama import Fore as fore
 
 
-def mostrar_producto(inventario: dict, i):
-    print(
-        f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{inventario.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${inventario.get(i)[1]}{fore.RESET}"
-    )
-
-
 def mostrar_inventario(inventario: dict):
     for i in inventario.keys():
-        mostrar_producto(inventario, i)
+        print(
+            f"Código: {fore.MAGENTA}{i}{fore.RESET}, Descripción: {fore.BLUE}{inventario.get(i)[0]}, {fore.RESET}Precio: {fore.YELLOW}${inventario.get(i)[1]}{fore.RESET}"
+        )
 
 
 def buscar_producto(inventario: dict, codigo: str):
@@ -18,7 +14,7 @@ def buscar_producto(inventario: dict, codigo: str):
             f"Se encontró el producto {fore.BLUE}{inventario.get(codigo)[0]} {fore.RESET}con el precio de {fore.YELLOW}${inventario.get(codigo)[1]}{fore.RESET}"
         )
     else:
-        print("No se encontró el producto buscado")
+        print("No se encontró el producto buscado.")
 
 
 def modificar_precio(inventario: dict, codigo: str, nuevoPrecio: float):
@@ -26,20 +22,20 @@ def modificar_precio(inventario: dict, codigo: str, nuevoPrecio: float):
         nuevoValor = (inventario.get(codigo)[0], nuevoPrecio)
         inventario.update({codigo: nuevoValor})
         print(
-            f"Se actualizó el precio del producto con el código {fore.MAGENTA}{codigo} {fore.RESET}a {fore.YELLOW}${nuevoPrecio}{fore.RESET}"
+            f"Se actualizó el precio del producto con el código {fore.MAGENTA}{codigo} {fore.RESET}a {fore.YELLOW}${nuevoPrecio}{fore.RESET}."
         )
     else:
-        print("No se encontró el producto buscado")
+        print("No se encontró el producto buscado.")
 
 
 def eliminar_producto(inventario: dict, codigo: str):
     if inventario.get(codigo):
         eliminado = inventario.pop(codigo)
         print(
-            f"Se {fore.RED}eliminó {fore.RESET}el producto {fore.BLUE}{eliminado[0]} {fore.RESET}del inventario"
+            f"Se {fore.RED}eliminó {fore.RESET}el producto {fore.BLUE}{eliminado[0]} {fore.RESET}con el código {fore.MAGENTA}{codigo} {fore.RESET}del inventario."
         )
     else:
-        print("No se encontró el producto buscado")
+        print("No se encontró el producto buscado.")
 
 
 def productos_por_rango_de_precio(inventario: dict, min, max):
@@ -51,8 +47,7 @@ def productos_por_rango_de_precio(inventario: dict, min, max):
         print(
             f"Productos en el rango de precios entre {fore.YELLOW}${min} {fore.RESET}y {fore.YELLOW}${max}{fore.RESET}:"
         )
-        for i in c.keys():
-            mostrar_producto(c, i)
+        mostrar_inventario(c)
     else:
         print(
             f"No se han encontrado productos dentro del rango de precios especificado."
